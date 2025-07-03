@@ -5,6 +5,7 @@
 package com.mm.app.repository;
 
 import com.mm.app.model.User;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,15 @@ public class UserRepositoryTests {
         Optional<User> u = userRepository.findByEmail(user.getEmail());
         Assertions.assertTrue(u.isPresent());
         Assertions.assertEquals(user, u.get());
+    }
+
+    @Test
+    public void findAllTest() {
+        User user1 = userRepository.save(new User("UR_4", "UR_4", "ur4@mail.com", "ur4"));
+        User user2 = userRepository.save(new User("UR_5", "UR_5", "ur5@mail.com", "ur5"));
+        List<User> users = userRepository.findAll();
+        Assertions.assertTrue(users.contains(user1));
+        Assertions.assertTrue(users.contains(user2));
     }
 
 }
